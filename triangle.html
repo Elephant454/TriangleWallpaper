@@ -25,7 +25,9 @@
                 var yVerts = Math.round(Math.sqrt((height*targetVerts)/width)) + 0.0;
                 var verts = genTessellation(width, height, xVerts, yVerts);
 
+                randomizeTessellation(verts, width, height, xVerts, yVerts);
                 drawTriangleFan(verts, xVerts, yVerts);
+                drawDebugPoints(verts, xVerts, yVerts);
 
             }
 
@@ -35,14 +37,17 @@
                 for(var y=0; y<height+1; y+=height/(yVerts-1.0)){
                     for(var x=0; x<width+1; x+=width/(xVerts-1.0)){
                         verts[increment] = new Vector2(x, y);
-                        ctx.beginPath();
-                        ctx.arc(x, y, 2, 0, 2*Math.PI);
-                        ctx.fill();
                         increment++;
                     }
                 }
-
                 return(verts);
+            }
+
+            function randomizeTessellation(verts, width, height, xVerts, yVerts){
+                for(var i=0; i<verts.length; i++){
+                    verts[i].x = (verts[i].x - (width/(xVerts-1.0))) + 2*(width/(xVerts-1.0))*Math.random();
+                    verts[i].y = (verts[i].y - (height/(yVerts-1.0))) + 2*(height/(yVerts-1.0))*Math.random();
+                }
             }
 
             function drawTriangleFan(verts, xVerts, yVerts){
@@ -63,7 +68,15 @@
                     ctx.fillStyle = "#CC9966"
                     ctx.fill();
                 }
-            
+            }
+
+            function drawDebugPoints(verts, xVerts, yVerts){
+                ctx.fillStyle = "#000000"
+                for(var i=0; i<verts.length; i++){
+                    ctx.beginPath();
+                    ctx.arc(verts[i].x, verts[i].y, 2, 0, 2*Math.PI);
+                    ctx.fill();
+                }
             }
 
 
