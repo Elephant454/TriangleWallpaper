@@ -4,8 +4,13 @@
         <title>Triangles</title>
 
         <script>
-            window.onload = main;
 
+            function Vector2(x, y){
+                this.x = x;
+                this.y = y;
+            }
+
+            window.onload = main;
             function main(){
                 canv = document.getElementById('canv');
                 ctx = canv.getContext("2d");
@@ -18,17 +23,7 @@
                 var targetVerts = 100;
                 var xVerts = Math.round(Math.sqrt((width*targetVerts)/height)) + 0.0;
                 var yVerts = Math.round(Math.sqrt((height*targetVerts)/width)) + 0.0;
-                var verts = new Array(xVerts*yVerts);
-                var increment = 0;
-                for(var y=0; y<height+1; y+=height/(yVerts-1.0)){
-                    for(var x=0; x<width+1; x+=width/(xVerts-1.0)){
-                        verts[increment] = new Vector2(x, y);
-                        ctx.beginPath();
-                        ctx.arc(x, y, 2, 0, 2*Math.PI);
-                        ctx.fill();
-                        increment++;
-                    }
-                }
+                var verts = genTessellation(width, height, xVerts, yVerts);
 
                 for(var i=0; i<verts.length-xVerts; i++){
                     if((i+1)%xVerts == 0) continue;
@@ -50,10 +45,22 @@
 
             }
 
-            function Vector2(x, y){
-                this.x = x;
-                this.y = y;
+            function genTessellation(width, height, xVerts, yVerts){
+                var verts = new Array(xVerts*yVerts);
+                var increment = 0;
+                for(var y=0; y<height+1; y+=height/(yVerts-1.0)){
+                    for(var x=0; x<width+1; x+=width/(xVerts-1.0)){
+                        verts[increment] = new Vector2(x, y);
+                        ctx.beginPath();
+                        ctx.arc(x, y, 2, 0, 2*Math.PI);
+                        ctx.fill();
+                        increment++;
+                    }
+                }
+
+                return(verts);
             }
+
 
         </script>
     </head>
