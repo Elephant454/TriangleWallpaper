@@ -25,23 +25,7 @@
                 var yVerts = Math.round(Math.sqrt((height*targetVerts)/width)) + 0.0;
                 var verts = genTessellation(width, height, xVerts, yVerts);
 
-                for(var i=0; i<verts.length-xVerts; i++){
-                    if((i+1)%xVerts == 0) continue;
-                    
-                    ctx.beginPath();
-                    ctx.moveTo(verts[i].x, verts[i].y);
-                    ctx.lineTo(verts[i+xVerts].x, verts[i+xVerts].y);
-                    ctx.lineTo(verts[i+xVerts+1].x, verts[i+xVerts+1].y);
-                    ctx.fillStyle = "#6699CC"
-                    ctx.fill();
-
-                    ctx.beginPath();
-                    ctx.moveTo(verts[i].x, verts[i].y);
-                    ctx.lineTo(verts[i+1].x, verts[i+1].y);
-                    ctx.lineTo(verts[i+xVerts+1].x, verts[i+xVerts+1].y);
-                    ctx.fillStyle = "#CC9966"
-                    ctx.fill();
-                }
+                drawTriangleFan(verts, xVerts, yVerts);
 
             }
 
@@ -59,6 +43,27 @@
                 }
 
                 return(verts);
+            }
+
+            function drawTriangleFan(verts, xVerts, yVerts){
+                for(var i=0; i<verts.length-xVerts; i++){
+                    if((i+1)%xVerts == 0) continue;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(verts[i].x, verts[i].y);
+                    ctx.lineTo(verts[i+xVerts].x, verts[i+xVerts].y);
+                    ctx.lineTo(verts[i+xVerts+1].x, verts[i+xVerts+1].y);
+                    ctx.fillStyle = "#6699CC"
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.moveTo(verts[i].x, verts[i].y);
+                    ctx.lineTo(verts[i+1].x, verts[i+1].y);
+                    ctx.lineTo(verts[i+xVerts+1].x, verts[i+xVerts+1].y);
+                    ctx.fillStyle = "#CC9966"
+                    ctx.fill();
+                }
+            
             }
 
 
