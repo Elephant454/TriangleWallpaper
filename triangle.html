@@ -44,7 +44,9 @@
             }
 
             function randomizeTessellation(verts, width, height, xVerts, yVerts){
-                for(var i=0; i<verts.length; i++){
+                for(var i=xVerts; i<verts.length-yVerts; i++){
+                    if((i)%xVerts == 0) continue;
+                    if((i+1)%xVerts == 0) continue;
                     verts[i].x = (verts[i].x - (width/(xVerts-1.0))) + 2*(width/(xVerts-1.0))*Math.random();
                     verts[i].y = (verts[i].y - (height/(yVerts-1.0))) + 2*(height/(yVerts-1.0))*Math.random();
                 }
