@@ -27,7 +27,7 @@
 
                 randomizeTessellation(verts, width, height, xVerts, yVerts);
                 drawTriangleFan(verts, xVerts, yVerts);
-                drawDebugPoints(verts, xVerts, yVerts);
+                drawDebugPoints(verts);
 
             }
 
@@ -44,11 +44,12 @@
             }
 
             function randomizeTessellation(verts, width, height, xVerts, yVerts){
-                for(var i=xVerts; i<verts.length-yVerts; i++){
+                for(var i=xVerts; i<verts.length-xVerts; i++){
                     if((i)%xVerts == 0) continue;
                     if((i+1)%xVerts == 0) continue;
-                    verts[i].x = (verts[i].x - (width/(xVerts-1.0))) + 2*(width/(xVerts-1.0))*Math.random();
-                    verts[i].y = (verts[i].y - (height/(yVerts-1.0))) + 2*(height/(yVerts-1.0))*Math.random();
+                    verts[i].x = (verts[i].x - (width/(xVerts-1.0))/2) + (width/(xVerts-1.0))*Math.random();
+                    verts[i].y = (verts[i].y - (height/(yVerts-1.0))/4) + (height/(yVerts-1.0))*Math.random()/3;
+                    drawDebugPoint(verts[i]);
                 }
             }
 
@@ -79,12 +80,11 @@
                 ctx.fill();
             }
 
-            function drawDebugPoints(verts, xVerts, yVerts){
-                for(vert of verts){
-                    drawDebugPoint(vert);
+            function drawDebugPoints(verts){
+                for(var i=0; i<verts.length; i++){
+                    drawDebugPoint(verts[i]);
                 }
             }
-
 
         </script>
     </head>
