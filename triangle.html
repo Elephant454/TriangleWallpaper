@@ -20,14 +20,14 @@
                 canv.width = width;
                 canv.height = height;
                 
-                var targetVerts = 100;
+                var targetVerts = 512;
                 var xVerts = Math.round(Math.sqrt((width*targetVerts)/height)) + 0.0;
                 var yVerts = Math.round(Math.sqrt((height*targetVerts)/width)) + 0.0;
                 var verts = genTessellation(width, height, xVerts, yVerts);
 
                 randomizeTessellation(verts, width, height, xVerts, yVerts);
                 drawTriangleFan(verts, xVerts, yVerts);
-                drawDebugPoints(verts);
+                //drawDebugPoints(verts);
 
             }
 
@@ -47,8 +47,8 @@
                 for(var i=xVerts; i<verts.length-xVerts; i++){
                     if((i)%xVerts == 0) continue;
                     if((i+1)%xVerts == 0) continue;
-                    verts[i].x = (verts[i].x - (width/(xVerts-1.0))/2) + (width/(xVerts-1.0))*Math.random();
-                    verts[i].y = (verts[i].y - (height/(yVerts-1.0))/4) + (height/(yVerts-1.0))*Math.random()/3;
+                    verts[i].x = (verts[i].x - (width/(xVerts-1.0))/2) + (width/(xVerts-1.0))*Math.random()/2;
+                    verts[i].y = (verts[i].y - (height/(yVerts-1.0))/2) + (height/(yVerts-1.0))*Math.random()/2;
                 }
             }
 
